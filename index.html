@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flappy Bird! JavaScript!</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+      * {
+          margin: 0;
+          padding: 0;
+      }
+
+      body {
+          max-width: 100vw;
+          max-height: 100vh;
+          overflow: hidden;
+      }
+
+      #container {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+      }
+
+      #debug {
+          position: absolute;
+          display: flex;
+          top: 10px;
+          left: 10px;
+          gap: 10px;
+          z-index: 1000;
+          padding: 5px;
+          background: #fefeae;
+          font-family: 'PixelText', serif;
+          align-items: center;
+          text-shadow: 1px 1px 0 #fff;
+
+          input {
+              width: 20px;
+              height: 20px;
+          }
+
+          label {
+              line-height: 20px;
+          }
+      }
+  </style>
+</head>
+<body>
+
+<div id="debug">
+  <input id="debugToggle" type="checkbox">
+  <label for="debugToggle">Debug</label>
+</div>
+
+<div id="container"></div>
+
+<script src='flappy.js'></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const params = new URLSearchParams(location.search);
+        const isDebug = params.get('debug') === 'true';
+        const _debugCheckbox = document.getElementById('debugToggle');
+        if(isDebug) {
+            _debugCheckbox.checked = true;
+        }
+        _debugCheckbox.addEventListener('change', function () {
+            location.search = `?debug=${this.checked}`;
+        });
+        // CALL PLUGIN WITH BEGIN PARAMETERS
+        FlappyBird('container', {
+            total: 20,
+            step: 300,
+            innerColumn: 170,
+            backgroundImage: undefined , // ['city', 'space', 'sea', 'cemetery', 'swamp', 'sea-sunset', 'sea-night'], undefined = random
+            debug: isDebug
+        });
+    });
+</script>
+</body>
+</html>

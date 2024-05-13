@@ -1,0 +1,348 @@
+@font-face {
+    font-family: Pixel;
+    src: url(./assets/Pixel.ttf);
+}
+
+@font-face {
+    font-family: PixelText;
+    src: url(./assets/Grand9KPixel.ttf);
+}
+
+#container.debug {
+    .flappy {
+        border: 1px solid red;
+    }
+
+    .flappy-column {
+        outline: 2px solid blue;
+
+        &:after {
+            content: attr(data-index);
+            position: absolute;
+            height: 50px;
+            width: 100%;
+            top: calc(50% - 25px);
+            text-align: center;
+            line-height: 50px;
+            color: #ffffff;
+            background: rgba(0, 0, 255, 0.2);
+            font-size: 30px;
+            font-family: 'PixelText', serif;
+        }
+
+        &.debug_hit {
+            outline: 2px solid red;
+
+            &:after {
+                background: rgba(255, 0, 0, 0.2);
+            }
+        }
+
+        &.debug_pass {
+            outline: 2px solid lime;
+
+            &:after {
+                background: rgba(19, 255, 0, 0.2);
+            }
+        }
+
+        .flappy-up-column, .flappy-down-column {
+            outline: 2px solid red;
+
+            &.debug_collide {
+                background-color: red;
+            }
+        }
+    }
+
+}
+
+.flappy {
+    position: absolute;
+    top: 40%;
+    left: 20%;
+    width: 67px;
+    height: 47px;
+    z-index: 100;
+
+    transform-origin: 50% 50%;
+    animation: animateUp 1s linear infinite;
+}
+
+.flappy-animation {
+    width: 67px;
+    height: 47px;
+    display: block;
+}
+
+.flappy-up {
+    transform: rotateZ(-20deg);
+    transition: transform .1s linear;
+}
+
+.flappy-down {
+    transform: rotateZ(90deg);
+    transition: transform .5s ease-in .1s;
+}
+
+.flappy-line {
+    position: absolute;
+    bottom: 0;
+    height: 64px;
+    width: 2560px;
+    background: transparent url(./assets/line.png) 0 0 repeat;
+    z-index: 100;
+    animation: animateFloor 10s linear infinite;
+}
+
+.flappy-columns {
+    position: absolute;
+    height: 100%;
+    width: auto;
+    z-index: 10;
+}
+
+.flappy-column {
+    position: absolute;
+    width: 100px;
+}
+
+.flappy-column .flappy-up-column, .flappy-column .flappy-down-column {
+    position: absolute;
+    width: 100%;
+}
+
+.flappy-column .flappy-up-column {
+    bottom: 0;
+}
+
+.flappy-up-column {
+    background: transparent url(./assets/up.png) 50% 0 no-repeat;
+    background-size: cover;
+}
+
+.flappy-down-column {
+    background: transparent url(./assets/down.png) 50% 100% no-repeat;
+    background-size: cover;
+}
+
+.flappy-counts {
+    position: absolute;
+    width: 100%;
+    top: 5%;
+    text-align: center;
+    font-family: Pixel, serif;
+    font-size: 90px;
+    font-weight: lighter;
+    text-transform: uppercase;
+    text-shadow: -5px -5px #333, -5px 5px #333, 5px -5px #333, 10px 10px #333;
+    color: #fff;
+    z-index: 99;
+}
+
+.flappy-flash {
+    background-color: rgba(255, 255, 255, .5);
+}
+
+.flappy-play {
+    position: absolute;
+    display: block;
+    float: left;
+    cursor: pointer;
+    z-index: 100;
+    user-select: none;
+}
+
+.flappy-back-main, .flappy-back-result {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-left: -250px;
+    margin-top: -250px;
+}
+
+.flappy-back-main .flappy-click {
+    width: 100%;
+    height: 205px;
+    margin-top: 50px;
+    float: left;
+    text-align: center;
+    background: transparent url(./assets/ClickHand.png) 50% 50% no-repeat;
+    background-size: contain;
+}
+
+.flappy-text {
+    position: relative;
+    width: 100%;
+    margin-top: 70px;
+    display: block;
+    float: left;
+}
+
+.flappy-text h2 {
+    text-align: center;
+    font-family: Pixel, serif;
+    font-size: 80px;
+    font-weight: lighter;
+    text-transform: uppercase;
+    color: #A2FD4F;
+    background: linear-gradient(0deg, #A2FD4F 49.9%, #FEFEAE 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.flappy-text:after {
+    content: 'Flappy Bird';
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-family: Pixel, serif;
+    font-size: 80px;
+    text-shadow: 4px 4px #333, -4px -4px #333, 4px -4px #333, -4px 4px #333, 8px 8px #fff, -8px -8px #fff, 8px -8px #fff, -8px 8px #fff;
+    font-weight: lighter;
+    text-transform: uppercase;
+    left: 0;
+    top: 0;
+    color: red;
+    z-index: -1;
+}
+
+.flappy-result-text {
+    position: relative;
+    width: 100%;
+    display: block;
+    float: left;
+}
+
+.flappy-result-text h1 {
+    text-align: center;
+    font-family: Pixel, serif;
+    font-size: 80px;
+    font-weight: lighter;
+    color: #ffa24b;
+}
+
+.flappy-result-text:after {
+    content: 'Game Over';
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-family: Pixel, serif;
+    font-size: 80px;
+    text-shadow: 4px 4px #fff, -4px -4px #fff, 4px -4px #fff, -4px 4px #fff, 8px 8px #333, -8px -8px #333, 8px -8px #333, -8px 8px #333;
+    font-weight: lighter;
+    left: 0;
+    top: 0;
+    color: red;
+    z-index: -1;
+}
+
+.flappy-result-back {
+    width: 100%;
+    height: 252px;
+    float: left;
+    margin-top: 20px;
+    background: transparent url(./assets/back.png) 0 0 no-repeat;
+}
+
+.flappy-result-medal {
+    width: 150px;
+    height: 202px;
+    margin: 25px;
+    float: left;
+}
+
+.flappy-best-result b {
+    padding-left: 4px;
+    margin-right: 5px;
+    background-color: red;
+    color: #fff;
+    text-shadow: none;
+}
+
+.flappy-result-back p {
+    width: 100%;
+    margin: 5px 0;
+    text-align: center;
+    color: #fb7959;
+    font-family: PixelText, serif;
+    font-size: 25px;
+    text-indent: 6px;
+    text-shadow: 0 3px #f5eca7;
+    text-transform: uppercase;
+}
+
+.flappy-result-medal img {
+    display: block;
+    margin: 15px auto;
+}
+
+.flappy-results {
+    width: 170px;
+    height: 202px;
+    margin: 25px 50px;
+    float: right;
+}
+
+.flappy-results p {
+    text-align: right;
+}
+
+.flappy-results h2 {
+    width: 100%;
+    text-align: right;
+    font-family: Pixel, serif;
+    font-size: 42px;
+    color: #fff;
+    text-shadow: 2px 2px #333, -2px -2px #333, 2px -2px #333, -2px 2px #333, 4px 4px #fff, -4px -4px #fff, 4px -4px #fff, -4px 4px #fff;
+    font-weight: lighter;
+    text-transform: uppercase;
+}
+
+.flappy-buttons {
+    width: 100%;
+    height: 153px;
+    float: left;
+}
+
+.flappy-buttons .flappy-restart {
+    width: 220px;
+    height: 100%;
+    float: left;
+    background: transparent url(./assets/PlayGame.png) 50% 100% no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    outline: none;
+}
+
+.flappy-buttons .flappy-rate {
+    width: 220px;
+    height: 100%;
+    float: right;
+    background: transparent url(./assets/troevkube.png) 50% 100% no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+@keyframes animateFloor {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: -2560px 0;
+    }
+}
+
+@keyframes animateUp {
+    0% {
+        margin-top: 20px;
+    }
+    50% {
+        margin-top: 0;
+    }
+    100% {
+        margin-top: 20px;
+    }
+}
