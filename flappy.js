@@ -267,9 +267,6 @@ function FlappyBird(elementId, options) {
         _flappyResultText.style.marginTop = '-40px';
         _flappyResultBack.style.marginTop = '60px';
         _flappyOtherButton.href = 'https://twitter.com/troshkin_pavel';
-        _flappyPlay.style.width = flappyUI.flappyContainer.offsetWidth + 'px';
-        _flappyPlay.style.height = flappyUI.flappyContainer.offsetHeight + 'px';
-        _flappyPlay.style.cursor = 'default';
 
         // Content block
         if (finalResult >= maxResult && finalResult > 0) {
@@ -347,10 +344,7 @@ function FlappyBird(elementId, options) {
             </div>
         `;
 
-        fadeIn(_flappyPlay, 200, () => {
-        });
-        _flappyPlay.style.width = flappyUI.flappyContainer.offsetWidth + 'px';
-        _flappyPlay.style.height = flappyUI.flappyContainer.offsetHeight + 'px';
+        fadeIn(_flappyPlay, 200, () => {});
         _flappyPlay.setAttribute('tabindex', '0');
         flappyUI.flappyLine.style.animationPlayState = 'running';
         flappyUI.flappyContainer.appendChild(_flappyPlay);
