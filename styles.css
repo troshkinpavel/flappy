@@ -90,9 +90,10 @@
     bottom: 0;
     height: 64px;
     width: 2560px;
+    /*width: 100%;*/
     background: transparent url(./assets/line.png) 0 0 repeat;
     z-index: 100;
-    animation: animateFloor 10s linear infinite;
+    animation: animateFloor 9.8s linear infinite;
 }
 
 .flappy-columns {

@@ -103,7 +103,7 @@ function FlappyBird(elementId, options) {
         flappyUI.flappyContainer.appendChild(flappyUI.flappy);
         flappyUI.flappyContainer.appendChild(flappyUI.flappyLine);
         flappyUI.flappyLine.classList.add('flappy-line');
-        flappyUI.flappyLine.style.width = flappyUI.flappyContainer.width + 'px';
+        // flappyUI.flappyLine.style.width = flappyUI.flappyContainer.offsetWidth + 'px';
         generateColumns(totalColumns);
     }
 
@@ -147,6 +147,23 @@ function FlappyBird(elementId, options) {
         animations.columns = new Animation(columnsKeyframes, document.timeline);
         animations.columns.finished.then(gameOver);
         animations.columns.play();
+    }
+
+    function floorAnimation(columns) {
+        const floorKeyframes = new KeyframeEffect(flappyUI.flappyLine, [
+            {
+                backgroundPosition: '0 0'
+            },
+            {
+                backgroundPosition: `-100% 0`
+            }
+        ], {
+            duration: (columns + 40) *30,
+            easing: 'linear',
+            iterations: Infinity
+        });
+        const floorAnimate = new Animation(floorKeyframes, document.timeline);
+        floorAnimate.play();
     }
 
     // ------------------------------------------------------- COLLISION --------------------------------------------------
@@ -332,7 +349,6 @@ function FlappyBird(elementId, options) {
 
     function showPlayUI() {
         createScene();
-
         const _flappyPlay = document.createElement('div');
         _flappyPlay.classList.add('flappy-play');
         _flappyPlay.innerHTML = `
@@ -344,7 +360,8 @@ function FlappyBird(elementId, options) {
             </div>
         `;
 
-        fadeIn(_flappyPlay, 200, () => {});
+        fadeIn(_flappyPlay, 200, () => {
+        });
         _flappyPlay.setAttribute('tabindex', '0');
         flappyUI.flappyLine.style.animationPlayState = 'running';
         flappyUI.flappyContainer.appendChild(_flappyPlay);
@@ -474,6 +491,7 @@ function FlappyBird(elementId, options) {
     // ------------------------------------------------------- GAME -------------------------------------------------------
 
     function playGame() {
+        // floorAnimation(totalColumns);
         startColumnAnimation(totalColumns);
         gameTimer();
 
